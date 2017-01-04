@@ -39,7 +39,8 @@ func getRank(name string) int64 {
 	fmt.Println("getRank:", name)
 	rank, err := redisClient.ZRevRank("leaderboard", name).Result()
 	if err != nil {
-		panic(err)
+		fmt.Println("No entry found for user:", name)
+		return -1
 	}
 	return rank
 }
@@ -48,7 +49,8 @@ func getScore(name string) float64 {
 	fmt.Println("getScore:", name)
 	score, err := redisClient.ZScore("leaderboard", name).Result()
 	if err != nil {
-		panic(err)
+		fmt.Println("No entry found for user:", name)
+		return -1
 	}
 	return score
 }
